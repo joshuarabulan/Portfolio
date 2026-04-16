@@ -1,0 +1,860 @@
+/* ================================================
+   RESUME PAGE STYLES
+   Depends on: style.css (variables, .btn, .section-title, .container)
+   ================================================ */
+
+/* ── Layout ── */
+.resume-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding-bottom: 3rem;
+}
+
+/* ── Intro Card ── */
+.resume-intro {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.resume-intro::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+}
+
+.resume-intro p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.8;
+  max-width: 560px;
+  flex: 1;
+}
+
+.resume-intro .btn {
+  margin-top: 0;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── Section Blocks ── */
+.resume-section {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base);
+}
+
+.resume-section:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.resume-section-title {
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── Timeline (Experience & Education) ── */
+.resume-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.resume-item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 0 var(--spacing-md);
+  position: relative;
+  padding-left: var(--spacing-sm);
+  border-left: 2px solid var(--border);
+  transition: border-color var(--transition-base);
+}
+
+.resume-item:hover {
+  border-left-color: var(--primary);
+}
+
+.resume-item-date {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  padding-top: 3px;
+}
+
+.resume-item-body h4 {
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.resume-item-body .company {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  margin-bottom: var(--spacing-xs);
+}
+
+.resume-item-body p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ── Skills Grid ── */
+.resume-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.skill-tag {
+  background: var(--light-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: center;
+  transition: all var(--transition-base);
+  letter-spacing: 0.02em;
+}
+
+.skill-tag:hover {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .resume-intro {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .resume-item {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+  }
+
+  .resume-skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+}
+
+/* ================================================
+   RESUME PROFILE / PERSONAL INFO SECTION
+   ================================================ */
+
+.resume-profile {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.profile-photo-wrap {
+  flex-shrink: 0;
+}
+
+.profile-photo {
+  width: 130px;
+  height: 130px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 4px solid var(--white);
+  box-shadow: var(--shadow-md), 0 0 0 3px var(--primary);
+  display: block;
+}
+
+.profile-details {
+  flex: 1;
+  min-width: 260px;
+}
+
+.profile-name {
+  font-family: var(--font-secondary);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.profile-role {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.profile-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--spacing-sm) var(--spacing-md);
+}
+
+.profile-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.profile-info-item > i {
+  font-size: 0.85rem;
+  color: var(--primary);
+  margin-top: 3px;
+  width: 16px;
+  flex-shrink: 0;
+}
+
+.profile-info-item > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.info-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+.info-value {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.info-value a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.info-value a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+@media (max-width: 520px) {
+  .resume-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-info-item {
+    justify-content: center;
+  }
+}
+
+/* ================================================
+   CERTIFICATIONS HORIZONTAL SCROLL GALLERY
+   ================================================ */
+
+/* Outer section: reduce bottom padding to keep dots tight */
+.cert-section {
+  overflow: hidden;
+}
+
+/* ── Scroll wrapper: clips fade edges + positions nav arrows ── */
+.cert-scroll-wrapper {
+  position: relative;
+}
+
+/* Fade-out edges */
+.cert-scroll-wrapper::before,
+.cert-scroll-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  z-index: 2;
+  pointer-events: none;
+}
+.cert-scroll-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--white), transparent);
+}
+.cert-scroll-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--white), transparent);
+}
+
+/* ── The scrollable track ── */
+.cert-gallery {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 12px 1rem;
+  cursor: grab;
+  scrollbar-width: none;         /* Firefox */
+  scroll-behavior: smooth;
+}
+.cert-gallery::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+.cert-gallery.dragging { cursor: grabbing; scroll-snap-type: none; }
+
+/* ── Individual cert card ── */
+.cert-card {
+  scroll-snap-align: start;
+  flex: 0 0 240px;
+  background: var(--light-bg, #f8f9fa);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.25rem 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform var(--transition-base),
+              border-color var(--transition-base),
+              box-shadow var(--transition-base);
+  animation: certFadeUp 0.5s ease both;
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* Top accent bar on hover */
+.cert-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+.cert-card:hover::before { opacity: 1; }
+
+/* Staggered entrance animation */
+.cert-card:nth-child(1) { animation-delay: 0.05s; }
+.cert-card:nth-child(2) { animation-delay: 0.12s; }
+.cert-card:nth-child(3) { animation-delay: 0.19s; }
+.cert-card:nth-child(4) { animation-delay: 0.26s; }
+
+/* ── Card header row: year + icon ── */
+.cert-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.cert-year {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+/* Fallback for browsers without color-mix */
+@supports not (color: color-mix(in srgb, red 10%, transparent)) {
+  .cert-year {
+    background: rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.12);
+  }
+}
+
+.cert-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--primary) 10%, white);
+  border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 1.05rem;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+.cert-card:hover .cert-icon {
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* ── Title ── */
+.cert-title {
+  font-family: var(--font-secondary);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* ── Issuer ── */
+.cert-issuer {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.cert-issuer i { font-size: 0.65rem; }
+
+/* ── Verified badge ── */
+.cert-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #2ea44f;
+  background: rgba(46,164,79,0.08);
+  border: 1px solid rgba(46,164,79,0.25);
+  border-radius: 999px;
+  padding: 3px 9px;
+  width: fit-content;
+  margin-top: auto;
+}
+.cert-badge i { font-size: 0.7rem; }
+
+/* ── Navigation arrows ── */
+.cert-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--transition-base),
+              color var(--transition-base),
+              opacity var(--transition-base),
+              box-shadow var(--transition-base);
+}
+.cert-nav:hover {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+}
+.cert-nav-prev { left: 4px; }
+.cert-nav-next { right: 4px; }
+
+/* ── Progress dots ── */
+.cert-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 1rem;
+}
+
+.cert-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: background var(--transition-base),
+              transform var(--transition-base),
+              width var(--transition-base);
+  border: none;
+}
+.cert-dot.active {
+  background: var(--primary);
+  width: 20px;
+  border-radius: 999px;
+}
+.cert-dot:hover:not(.active) {
+  background: var(--text-light);
+}
+
+/* ── Fade-up entrance animation ── */
+@keyframes certFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive: make cards slightly narrower on small screens ── */
+@media (max-width: 480px) {
+  .cert-card {
+    flex: 0 0 220px;
+  }
+  .cert-nav { display: none; }
+}
+
+/* ================================================
+   CERT CARD — IMAGE PREVIEW (top half)
+   ================================================ */
+
+/* Cards are now taller to accommodate the image */
+.cert-card {
+  flex: 0 0 260px;
+  padding: 0;           /* image flush to card edges */
+  gap: 0;
+}
+
+/* ── Image container ── */
+.cert-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 155px;
+  overflow: hidden;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  cursor: pointer;
+  background: var(--border);  /* placeholder while image loads */
+  flex-shrink: 0;
+}
+
+.cert-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.cert-card:hover .cert-img {
+  transform: scale(1.04);
+}
+
+/* "View" overlay on hover */
+.cert-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.cert-card:hover .cert-img-overlay {
+  opacity: 1;
+}
+
+/* Year pill over the image */
+.cert-year-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.2);
+  z-index: 1;
+}
+
+/* ── Card body (below the image) ── */
+.cert-card-body {
+  padding: 1rem 1.1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+/* Header row inside body: icon + badge */
+.cert-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
+}
+
+/* Adjust title & issuer for new body padding */
+.cert-title {
+  font-family: var(--font-secondary);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.cert-issuer {
+  font-size: 0.73rem;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: auto;
+}
+.cert-issuer i { font-size: 0.62rem; }
+
+/* ================================================
+   LIGHTBOX
+   ================================================ */
+
+.cert-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.cert-lightbox.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.cert-lightbox-inner {
+  position: relative;
+  max-width: 860px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  transform: scale(0.94);
+  transition: transform 0.25s ease;
+}
+.cert-lightbox.active .cert-lightbox-inner {
+  transform: scale(1);
+}
+
+.cert-lightbox-img {
+  width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  display: block;
+}
+
+.cert-lightbox-caption {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.cert-lightbox-close {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 10000;
+}
+.cert-lightbox-close:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+@media (max-width: 480px) {
+  .cert-lightbox { padding: 1rem; }
+  .cert-img-wrap { height: 130px; }
+}
+
+/* ================================================
+   SECTION COLOR BLENDS
+   Each section gets a unique subtle tinted background
+   + a matching colored left border + title accent
+   ================================================ */
+
+/* ── Shared: replace bottom border on titles with a left accent bar ── */
+.resume-section-title {
+  border-bottom: none;
+  padding-left: 0.75rem;
+  position: relative;
+}
+.section-title {
+    border-left: none !important;
+    padding-left: 0 !important;
+}
+
+/* Sometimes designers use a ::before pseudo-element for this line */
+.section-title::before {
+    display: none !important;
+}
+.resume-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.12;
+  margin-bottom: 8px;
+}
+
+/* ── 1. Profile — cool blue-slate ── */
+.resume-profile {
+  background: linear-gradient(135deg, #eef4ff 0%, #f5f8ff 60%, #ffffff 100%);
+  border-left: 4px solid #4f86f7;
+}
+.resume-profile .profile-name { color: #1e3a6e; }
+
+/* ── 2. Intro — warm cream ── */
+.resume-intro {
+  background: linear-gradient(135deg, #fffdf5 0%, #fff9eb 60%, #ffffff 100%);
+  border-left: 4px solid var(--primary);
+}
+
+/* ── 3. Education — soft indigo / periwinkle ── */
+.resume-section:has(.fa-graduation-cap) {
+  background: linear-gradient(135deg, #f0f0ff 0%, #f6f5ff 60%, #ffffff 100%);
+  border-left: 4px solid #7c6fef;
+}
+.resume-section:has(.fa-graduation-cap) .resume-section-title { color: #6457d6; }
+.resume-section:has(.fa-graduation-cap) .resume-section-title::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: #7c6fef; border-radius: 2px;
+}
+.resume-section:has(.fa-graduation-cap) .resume-item:hover { border-left-color: #7c6fef; }
+.resume-section:has(.fa-graduation-cap) .resume-item-date { color: #6457d6; }
+.resume-section:has(.fa-graduation-cap):hover { box-shadow: 0 4px 20px rgba(124, 111, 239, 0.13); }
+
+/* ── 4. Experience — teal / emerald ── */
+.resume-section:has(.fa-briefcase) {
+  background: linear-gradient(135deg, #edfaf5 0%, #f0fdf8 60%, #ffffff 100%);
+  border-left: 4px solid #2da87a;
+}
+.resume-section:has(.fa-briefcase) .resume-section-title { color: #1f8f64; }
+.resume-section:has(.fa-briefcase) .resume-section-title::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: #2da87a; border-radius: 2px;
+}
+.resume-section:has(.fa-briefcase) .resume-item:hover { border-left-color: #2da87a; }
+.resume-section:has(.fa-briefcase) .resume-item-date { color: #1f8f64; }
+.resume-section:has(.fa-briefcase):hover { box-shadow: 0 4px 20px rgba(45, 168, 122, 0.13); }
+
+/* ── 5. Certifications — warm amber / gold ── */
+.cert-section {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef9e7 60%, #ffffff 100%);
+  border-left: 4px solid #f59e0b;
+}
+.cert-section .resume-section-title { color: #d97706; }
+.cert-section .resume-section-title::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: #f59e0b; border-radius: 2px;
+}
+.cert-section:hover { box-shadow: 0 4px 20px rgba(245, 158, 11, 0.13); }
+
+/* Cert card colors match amber theme */
+.cert-card {
+  background: #ffffff;
+  border-color: #fde68a;
+}
+.cert-card:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.14);
+}
+.cert-card::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.cert-icon { background: #fef3c7; border-color: #fde68a; color: #d97706; }
+.cert-card:hover .cert-icon { background: #f59e0b; color: #fff; }
+.cert-year { color: #d97706; background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); }
+.cert-dot.active { background: #f59e0b; }
+.cert-nav:hover { background: #f59e0b; border-color: #f59e0b; }
+
+/* ── 6. Skills — soft violet ── */
+.resume-section:has(.fa-code) {
+  background: linear-gradient(135deg, #fdf4ff 0%, #faf0ff 60%, #ffffff 100%);
+  border-left: 4px solid #a855f7;
+}
+.resume-section:has(.fa-code) .resume-section-title { color: #9333ea; }
+.resume-section:has(.fa-code) .resume-section-title::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: #a855f7; border-radius: 2px;
+}
+.resume-section:has(.fa-code) .skill-tag:hover {
+  background: #9333ea;
+  border-color: #9333ea;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.25);
+}
+.resume-section:has(.fa-code):hover { box-shadow: 0 4px 20px rgba(168, 85, 247, 0.13); }
+
+/* ── Profile hover ── */
+.resume-profile:hover { box-shadow: 0 4px 20px rgba(79, 134, 247, 0.13); }
+
+/* ── Fallback: browsers without :has() get a plain primary border ── */
+@supports not (selector(:has(a, b))) {
+  .resume-section { border-left: 4px solid var(--primary); }
+}
