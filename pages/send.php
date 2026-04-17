@@ -1,10 +1,11 @@
 <?php
-include "../db.php";
+// Remove the relative paths - use __DIR__ instead
+require_once __DIR__ . '/db.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 header('Content-Type: application/json');
 
@@ -42,19 +43,21 @@ try {
 
     if ($stmt->execute()) {
 
-        // ── Send Gmail notification ──
+        // ── Send Gmail notification using ENVIRONMENT VARIABLES ──
         try {
             $mail = new PHPMailer(true);
             $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com';
+            $mail->Host       = getenv('SMTP_HOST') ?: 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'joshuamacatangayrabulan@gmail.com';   // ← your Gmail here
-            $mail->Password   = 'sdmo kppd xgsc pyhe';     // ← Gmail App Password here
-            $mail->SMTPSecure = 'tls';
-            $mail->Port       = 587;
+            $mail->Username   = getenv('SMTP_USERNAME') ?: 'joshuamacatangayrabulan@gmail.com';
+            $mail->Password   = getenv('SMTP_PASSWORD') ?: 'sdmo kppd xgsc pyhe';  // ← MOVE THIS TO ENV VAR!
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = getenv('SMTP_PORT') ?: 587;
 
-            $mail->setFrom('joshuamacatangayrabulan@gmail.com', 'Portfolio');  // ← your Gmail here
-            $mail->addAddress('joshuamacatangayrabulan@gmail.com');    // ← where notif goes
+            $mail->setFrom($mail->Username, 'Portfolio Contact');
+            $mail->addAddress('joshuamacatangayrabulan@gmail.com');  // Where notifications go
+            $mail->addReplyTo($email, $name);
+            
             $mail->Subject = "New Message from $name";
             $mail->isHTML(true);
             $mail->Body = "
@@ -75,12 +78,19 @@ try {
             ";
 
             $mail->send();
+            $mail_sent = true;
         } catch (Exception $e) {
-            // Mail failed silently — DB save still succeeded
+            // Log error but don't fail the request
+            error_log("Mail failed: " . $e->getMessage());
+            $mail_sent = false;
         }
 
         http_response_code(200);
-        echo json_encode(['success' => true, 'message' => 'Message sent!']);
+        echo json_encode([
+            'success' => true, 
+            'message' => 'Message sent!',
+            'mail_sent' => $mail_sent
+        ]);
 
     } else {
         throw new Exception("Execute failed: " . $stmt->error);
@@ -93,12 +103,4 @@ try {
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
- catch (Exception $e) {
-    // Change this line:
-    error_log("Mail error: " . $e->getMessage());
-    // to this temporarily:
-    echo json_encode(['mail_error' => $e->getMessage()]);
-}
 ?>
-
-
