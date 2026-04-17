@@ -14,23 +14,17 @@
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/modalcontact.css">
-    <style>
-      
-    </style>
 </head>
 <body class="bg-image">
-
 <?php include "includes/header.php"; ?>
 <div class="container">
     <div class="hero">
         <img src="assets/images/me.JPG" alt="Joshua Rabulan Profile Picture">
-
         <div class="hero-text">
             <p class="greeting"><i class="fas fa-hand-wave"></i> Hey, there</p>
             <h1>Joshua Rabulan</h1>
             <p class="tagline">Aspiring Web Developer • Technical Support</p>
             <p class="description">Aspiring Web Developer and Tech Support with a strong interest in building clean, responsive, and user-friendly web applications. Passionate about solving technical issues, assisting users, and continuously learning new technologies. Open to internship and entry-level opportunities to gain hands-on experience and contribute to a dynamic team.</p>
-
             <div class="btn-group"> 
                 <!-- Download CV button with confirmation modal trigger -->
                 <button id="downloadCvBtn" class="btn">
@@ -43,7 +37,6 @@
         </div>
     </div>
 </div>
-
 <div id="cvConfirmModal" class="cv-modal">
     <div class="cv-modal-content">
         <div class="cv-modal-header">
@@ -61,7 +54,6 @@
     </div>
 </div>
 <?php include "includes/footer.php"; ?>
-
 <script>
     (function() {
         const modal = document.getElementById('cvConfirmModal');
@@ -123,7 +115,6 @@
                 }
             });
         }
-        
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
                 closeModal();
