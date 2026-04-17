@@ -14,9 +14,9 @@ $conn = mysqli_init();
 // Configure SSL if certificate exists
 if (file_exists($ca_cert_path)) {
     mysqli_ssl_set($conn, NULL, NULL, $ca_cert_path, NULL, NULL);
-    error_log("Using CA certificate: " . $ca_cert_path);
 } else {
-    error_log("WARNING: CA certificate not found at: " . $ca_cert_path);
+    // Try without certificate if not found
+    mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
 }
 
 // Disable strict SSL verification for TiDB Cloud
@@ -25,7 +25,6 @@ mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false);
 // Establish connection
 if (!mysqli_real_connect($conn, $host, $username, $password, $database, $port, NULL, MYSQLI_CLIENT_SSL)) {
     $error = mysqli_connect_error();
-    error_log("Database connection failed: " . $error);
     
     // For API calls, return JSON error
     if (strpos($_SERVER['REQUEST_URI'], 'send.php') !== false) {
@@ -37,5 +36,4 @@ if (!mysqli_real_connect($conn, $host, $username, $password, $database, $port, N
 }
 
 $conn->set_charset("utf8mb4");
-error_log("Successfully connected to TiDB Cloud");
 ?>
