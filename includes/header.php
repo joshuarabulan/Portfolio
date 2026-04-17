@@ -40,10 +40,10 @@ $current = basename($_SERVER['PHP_SELF'], '.php');
   </nav>
 
   <div class="nav-mobile" id="navMobile">
-    <a href="<?php echo $base; ?>index.php"          class="nav-mobile-link <?php echo $current === 'index'    ? 'active' : ''; ?>">Home</a>
-    <a href="<?php echo $base; ?>pages/projects.php" class="nav-mobile-link <?php echo $current === 'projects' ? 'active' : ''; ?>">Portfolio</a>
-    <a href="<?php echo $base; ?>pages/about.php"    class="nav-mobile-link <?php echo $current === 'about'    ? 'active' : ''; ?>">About</a>
-    <a href="<?php echo $base; ?>pages/resume.php"   class="nav-mobile-link <?php echo $current === 'resume'   ? 'active' : ''; ?>">Resume</a>
+    <a href="<?php echo $base; ?>index.php"class="nav-mobile-link <?php echo $current === 'index'    ? 'active' : ''; ?>">Home</a>
+    <a href="<?php echo $base; ?>portfolio/pages/projects.php" class="nav-mobile-link <?php echo $current === 'projects' ? 'active' : ''; ?>">Portfolio</a>
+    <a href="<?php echo $base; ?>portfolio/pages/about.php"    class="nav-mobile-link <?php echo $current === 'about'    ? 'active' : ''; ?>">About</a>
+    <a href="<?php echo $base; ?>portfolio/pages/resume.php"   class="nav-mobile-link <?php echo $current === 'resume'   ? 'active' : ''; ?>">Resume</a>
     <!-- Mobile drawer also opens modal -->
     <button class="nav-mobile-link nav-mobile-contact" id="openContactModalMobile">
       <i class="fas fa-envelope"></i> LET'S CONNECT

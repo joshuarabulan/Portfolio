@@ -21,9 +21,9 @@
 
     <nav class="footer-links" aria-label="Footer navigation">
   <a href="index.php"><i class="fas fa-chevron-right"></i>Home</a>
-  <a href="/pages/about.php"><i class="fas fa-chevron-right"></i>About</a>
-  <a href="/pages/projects.php"><i class="fas fa-chevron-right"></i>Portfolio</a>
-  <a href="/pages/resume.php"><i class="fas fa-chevron-right"></i>Resume</a>
+  <a href="/portfolio/pages/about.php"><i class="fas fa-chevron-right"></i>About</a>
+  <a href="/portfolio/pages/projects.php"><i class="fas fa-chevron-right"></i>Portfolio</a>
+  <a href="/portfolio/pages/resume.php"><i class="fas fa-chevron-right"></i>Resume</a>
   <a href="#" id="footerContactLink"><i class="fas fa-chevron-right"></i>Contact</a>
    </nav>
 
