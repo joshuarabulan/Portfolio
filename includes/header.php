@@ -1,7 +1,4 @@
 <?php
-// File: pages/send.php
-
-// Fix paths - from pages/ folder, need to go up one level
 require_once __DIR__ . '/../db.php';
 
 use PHPMailer\PHPMailer\PHPMailer;

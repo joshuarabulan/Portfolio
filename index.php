@@ -21,7 +21,6 @@
 <body class="bg-image">
 
 <?php include "includes/header.php"; ?>
-
 <div class="container">
     <div class="hero">
         <img src="assets/images/me.JPG" alt="Joshua Rabulan Profile Picture">
@@ -61,7 +60,6 @@
         </div>
     </div>
 </div>
-
 <?php include "includes/footer.php"; ?>
 
 <script>
