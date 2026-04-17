@@ -1,11 +1,11 @@
 <?php
-// Remove the relative paths - use __DIR__ instead
-require_once __DIR__ . '/db.php';
+// Fix: Go up one level to find db.php in the root
+require_once __DIR__ . '/../db.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 header('Content-Type: application/json');
 
@@ -32,6 +32,11 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 try {
+    // Check if database connection exists
+    if (!isset($conn) || !$conn) {
+        throw new Exception("Database connection failed");
+    }
+    
     // ── Save to DB ──
     $stmt = $conn->prepare("INSERT INTO contact (name, email, message, created_at) VALUES (?, ?, ?, NOW())");
     
@@ -50,12 +55,12 @@ try {
             $mail->Host       = getenv('SMTP_HOST') ?: 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
             $mail->Username   = getenv('SMTP_USERNAME') ?: 'joshuamacatangayrabulan@gmail.com';
-            $mail->Password   = getenv('SMTP_PASSWORD') ?: 'sdmo kppd xgsc pyhe';  // ← MOVE THIS TO ENV VAR!
+            $mail->Password   = getenv('SMTP_PASSWORD') ?: 'sdmo kppd xgsc pyhe';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = getenv('SMTP_PORT') ?: 587;
 
             $mail->setFrom($mail->Username, 'Portfolio Contact');
-            $mail->addAddress('joshuamacatangayrabulan@gmail.com');  // Where notifications go
+            $mail->addAddress('joshuamacatangayrabulan@gmail.com');
             $mail->addReplyTo($email, $name);
             
             $mail->Subject = "New Message from $name";
@@ -80,7 +85,6 @@ try {
             $mail->send();
             $mail_sent = true;
         } catch (Exception $e) {
-            // Log error but don't fail the request
             error_log("Mail failed: " . $e->getMessage());
             $mail_sent = false;
         }
@@ -97,7 +101,9 @@ try {
     }
 
     $stmt->close();
-    $conn->close();
+    if (isset($conn) && $conn) {
+        $conn->close();
+    }
 
 } catch (Exception $e) {
     http_response_code(500);
