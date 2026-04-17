@@ -1,19 +1,18 @@
 <?php
-// File: db.php - Updated for Render compatibility
+// File: db.php - Using PDO instead of MySQLi
 
-// Use environment variables on Render, fallback to local values
-$host = getenv('DB_HOST') ?: "localhost";
-$username = getenv('DB_USER') ?: "root";
-$password = getenv('DB_PASS') ?: "";
-$database = getenv('DB_NAME') ?: "portfolio";
-
-// Create connection
-$conn = new mysqli($host, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    // On Render, log error but don't die with output (breaks JSON responses)
-    error_log("Database connection failed: " . $conn->connect_error);
-    $conn = null; // Set to null so we can check later
+try {
+    $host = getenv('DB_HOST') ?: 'localhost';
+    $dbname = getenv('DB_NAME') ?: 'portfolio';
+    $username = getenv('DB_USER') ?: 'root';
+    $password = getenv('DB_PASS') ?: '';
+    
+    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    
+} catch(PDOException $e) {
+    error_log("Database connection failed: " . $e->getMessage());
+    $conn = null; // Set to null so we can check if connection exists
 }
 ?>
