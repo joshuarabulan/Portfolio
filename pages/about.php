@@ -29,7 +29,7 @@
   <div class="about-hero">
 
     <div class="about-photo-wrap">
-      <img src="../assets/images/me.jpg" alt="Joshua Rabulan" class="about-photo">
+      <img src="../assets/images/me.JPG" alt="Joshua Rabulan" class="about-photo">
     </div>
 
     <div class="about-intro">
