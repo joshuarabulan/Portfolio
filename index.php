@@ -65,7 +65,7 @@
         const confirmBtn = document.getElementById('confirmDownloadBtn');
         const cancelBtn = document.getElementById('cancelDownloadBtn');
         
-        const cvFilePath = "assets/files/resume.pdf";
+        const cvFilePath = "assets/files/Resume.pdf";
         
         function performDownload() {
             const link = document.createElement('a');
