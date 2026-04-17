@@ -6,7 +6,7 @@ $password = getenv('PASSWORD') ?: 'arx3ZHVQMQnH0Exq';
 $database = getenv('NAME') ?: 'test';
 $port = getenv('PORT') ?: '4000';
 
-// Create connection with SSL for TiDB Cloud
+// Create connection with SSL for TiDB Cloud 
 $conn = mysqli_init();
 
 // Enable SSL - This is the correct way for TiDB Cloud
