@@ -5,10 +5,16 @@ $password = 'arx3ZHVQMQnH0Exq';
 $database = 'portfolio';
 $port = 4000;
 
-$conn = new mysqli($host, $username, $password, $database, $port);
+// Create connection with SSL (REQUIRED by TiDB)
+$conn = mysqli_init();
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// Enable SSL
+mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
+mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false);
+
+// Connect with SSL
+if (!mysqli_real_connect($conn, $host, $username, $password, $database, $port, NULL, MYSQLI_CLIENT_SSL)) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 
 $conn->set_charset("utf8mb4");

@@ -1,23 +1,25 @@
 <?php
 $host = 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com';
-$user = '4KfxBVX3fQLSFAe.root';
-$pass = 'arx3ZHVQMQnH0Exq';
-$db = 'portfolio';
+$username = '4KfxBVX3fQLSFAe.root';
+$password = 'arx3ZHVQMQnH0Exq';
+$database = 'portfolio';
 $port = 4000;
 
-echo "Testing connection to TiDB Cloud...<br>";
+echo "Testing SSL connection to TiDB Cloud...<br>";
 
-$conn = new mysqli($host, $user, $pass, $db, $port);
+$conn = mysqli_init();
+mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
+mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false);
 
-if ($conn->connect_error) {
-    echo "❌ FAILED: " . $conn->connect_error;
-} else {
-    echo "✅ SUCCESS! Connected to TiDB Cloud!<br>";
+if (mysqli_real_connect($conn, $host, $username, $password, $database, $port, NULL, MYSQLI_CLIENT_SSL)) {
+    echo "✅ SUCCESS! Connected with SSL!<br>";
     
-    $result = $conn->query("SELECT NOW() as time");
-    $row = $result->fetch_assoc();
+    $result = mysqli_query($conn, "SELECT NOW() as time");
+    $row = mysqli_fetch_assoc($result);
     echo "Server time: " . $row['time'] . "<br>";
     
-    $conn->close();
+    mysqli_close($conn);
+} else {
+    echo "❌ FAILED: " . mysqli_connect_error();
 }
 ?>
