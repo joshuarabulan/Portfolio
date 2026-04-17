@@ -1,26 +1,23 @@
 <?php
-// No database connection needed anymore!
+include "../db.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require __DIR__ . '/../vendor/autoload.php';
+require '../vendor/autoload.php';
 
 header('Content-Type: application/json');
 
-// Allow only POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['success' => false, 'message' => 'Method not allowed']);
     exit;
 }
 
-// Get and sanitize form data
 $name    = trim($_POST['name']    ?? '');
 $email   = trim($_POST['email']   ?? '');
 $message = trim($_POST['message'] ?? '');
 
-// Validate inputs
 if (empty($name) || empty($email) || empty($message)) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'All fields are required.']);
@@ -33,99 +30,75 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-// Send email
 try {
-    $mail = new PHPMailer(true);
+    // ── Save to DB ──
+    $stmt = $conn->prepare("INSERT INTO contact (name, email, message, created_at) VALUES (?, ?, ?, NOW())");
     
-    // SMTP Configuration
-    $mail->isSMTP();
-    $mail->Host       = 'smtp.gmail.com';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = 'joshuamacatangayrabulan@gmail.com';
-    $mail->Password   = 'sdmo kppd xgsc pyhe';  // Your App Password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = 587;
+    if (!$stmt) {
+        throw new Exception("Prepare failed: " . $conn->error);
+    }
     
-    // Additional settings for Render
-    $mail->Timeout = 30;
-    $mail->SMTPKeepAlive = false;
-    
-    // Email content
-    $mail->setFrom('joshuamacatangayrabulan@gmail.com', 'Joshua Rabulan Portfolio');
-    $mail->addAddress('joshuamacatangayrabulan@gmail.com');  // Send to yourself
-    $mail->addReplyTo($email, $name);  // So you can reply directly
-    
-    $mail->Subject = "📬 New Portfolio Message from $name";
-    $mail->isHTML(true);
-    
-    // HTML email body
-    $mail->Body = "
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-                .container { max-width: 500px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
-                .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; color: white; }
-                .content { padding: 24px; }
-                .field { margin-bottom: 16px; }
-                .label { font-weight: bold; color: #555; margin-bottom: 4px; }
-                .value { color: #333; }
-                .message-box { background: #f5f5f5; padding: 12px; border-radius: 6px; margin-top: 8px; }
-                .footer { background: #f9f9f9; padding: 12px; text-align: center; font-size: 12px; color: #888; }
-            </style>
-        </head>
-        <body>
-            <div class='container'>
-                <div class='header'>
-                    <h2 style='margin: 0;'>✨ New Portfolio Message</h2>
-                </div>
-                <div class='content'>
-                    <div class='field'>
-                        <div class='label'>👤 Name:</div>
-                        <div class='value'>" . htmlspecialchars($name) . "</div>
+    $stmt->bind_param("sss", $name, $email, $message);
+
+    if ($stmt->execute()) {
+
+        // ── Send Gmail notification ──
+        try {
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'joshuamacatangayrabulan@gmail.com';   // ← your Gmail here
+            $mail->Password   = 'sdmo kppd xgsc pyhe';     // ← Gmail App Password here
+            $mail->SMTPSecure = 'tls';
+            $mail->Port       = 587;
+
+            $mail->setFrom('joshuamacatangayrabulan@gmail.com', 'Portfolio');  // ← your Gmail here
+            $mail->addAddress('joshuamacatangayrabulan@gmail.com');    // ← where notif goes
+            $mail->Subject = "New Message from $name";
+            $mail->isHTML(true);
+            $mail->Body = "
+                <div style='font-family: Inter, sans-serif; max-width: 500px; margin: auto; border: 1px solid #e9ecef; border-radius: 12px; overflow: hidden;'>
+                    <div style='background: linear-gradient(135deg, #7AAACE, #355872); padding: 20px 24px;'>
+                        <h2 style='color: #fff; margin: 0; font-size: 18px;'>📬 New Portfolio Message</h2>
                     </div>
-                    <div class='field'>
-                        <div class='label'>📧 Email:</div>
-                        <div class='value'><a href='mailto:$email'>$email</a></div>
+                    <div style='padding: 24px;'>
+                        <p style='margin: 0 0 12px;'><strong>Name:</strong> $name</p>
+                        <p style='margin: 0 0 12px;'><strong>Email:</strong> <a href='mailto:$email'>$email</a></p>
+                        <p style='margin: 0 0 8px;'><strong>Message:</strong></p>
+                        <p style='background: #f8f9fa; padding: 12px; border-radius: 8px; margin: 0;'>$message</p>
                     </div>
-                    <div class='field'>
-                        <div class='label'>💬 Message:</div>
-                        <div class='message-box'>" . nl2br(htmlspecialchars($message)) . "</div>
+                    <div style='padding: 12px 24px; background: #f8f9fa; font-size: 12px; color: #6c757d;'>
+                        Sent from your portfolio contact form
                     </div>
                 </div>
-                <div class='footer'>
-                    Sent from your portfolio contact form • " . date('F j, Y g:i A') . "
-                </div>
-            </div>
-        </body>
-        </html>
-    ";
-    
-    // Plain text version for email clients that don't support HTML
-    $mail->AltBody = "New message from your portfolio\n\n";
-    $mail->AltBody .= "Name: $name\n";
-    $mail->AltBody .= "Email: $email\n";
-    $mail->AltBody .= "Message:\n$message\n\n";
-    $mail->AltBody .= "Sent: " . date('Y-m-d H:i:s');
-    
-    // Send the email
-    $mail->send();
-    
-    // Success response
-    http_response_code(200);
-    echo json_encode(['success' => true, 'message' => 'Message sent successfully!']);
-    
+            ";
+
+            $mail->send();
+        } catch (Exception $e) {
+            // Mail failed silently — DB save still succeeded
+        }
+
+        http_response_code(200);
+        echo json_encode(['success' => true, 'message' => 'Message sent!']);
+
+    } else {
+        throw new Exception("Execute failed: " . $stmt->error);
+    }
+
+    $stmt->close();
+    $conn->close();
+
 } catch (Exception $e) {
-    // Log the error for debugging
-    error_log("Mailer Error: " . $mail->ErrorInfo);
-    
-    // Return user-friendly error
     http_response_code(500);
-    echo json_encode([
-        'success' => false, 
-        'message' => 'Failed to send message. Please try again later.',
-        'debug' => $mail->ErrorInfo  // Remove this line in production
-    ]);
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+}
+ catch (Exception $e) {
+        http_response_code(500);
+        // For security, you might want to log the error instead of exposing it in the response
+    // to this temporarily:
+    echo json_encode(['mail_error' => $e->getMessage()]);
 }
 ?>
+
+

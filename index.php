@@ -14,12 +14,8 @@
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/modalcontact.css">
-    <style>
-      
-    </style>
 </head>
 <body class="bg-image">
-
 <?php include "includes/header.php"; ?>
 <div class="container">
     <div class="hero">
@@ -60,7 +56,6 @@
         </div>
     </div>
 </div>
-
 <?php include "includes/footer.php"; ?>
 
 <script>

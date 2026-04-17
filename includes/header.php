@@ -91,7 +91,7 @@ $current = basename($_SERVER['PHP_SELF'], '.php');
       <p>Message sent! I'll be in touch soon.</p>
     </div>
 
-<form class="modal-form" id="contactModalForm" action="/pages/send.php" method="POST" novalidate>
+    <form class="modal-form" id="contactModalForm" action="<?php echo $base; ?>pages/send.php" method="POST" novalidate>
 
       <div class="modal-form-group">
         <label for="modalName"><i class="fas fa-user"></i> Name</label>
