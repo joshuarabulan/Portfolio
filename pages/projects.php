@@ -26,7 +26,6 @@
     <button class="filter-btn" data-filter="web">Web</button>
     <button class="filter-btn" data-filter="php">PHP</button>
     <button class="filter-btn" data-filter="design">Design</button>
-    <button class="filter-btn" data-filter="c#">C#</button>
   </div>
 
   <!-- ── Projects Grid ── -->
