@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../db.php';
+include "../db.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require '../vendor/autoload.php';
 
 header('Content-Type: application/json');
 
@@ -31,66 +31,74 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 try {
-    // ── Save to DB using PDO (only if connection exists) ──
-    if (isset($conn) && $conn) {
-        $sql = "INSERT INTO contact (name, email, message, created_at) VALUES (:name, :email, :message, NOW())";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([
-            ':name' => $name,
-            ':email' => $email,
-            ':message' => $message
-        ]);
+    // ── Save to DB ──
+    $stmt = $conn->prepare("INSERT INTO contact (name, email, message, created_at) VALUES (?, ?, ?, NOW())");
+    
+    if (!$stmt) {
+        throw new Exception("Prepare failed: " . $conn->error);
+    }
+    
+    $stmt->bind_param("sss", $name, $email, $message);
+
+    if ($stmt->execute()) {
+
+        // ── Send Gmail notification ──
+        try {
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'joshuamacatangayrabulan@gmail.com';   // ← your Gmail here
+            $mail->Password   = 'sdmo kppd xgsc pyhe';     // ← Gmail App Password here
+            $mail->SMTPSecure = 'tls';
+            $mail->Port       = 587;
+
+            $mail->setFrom('joshuamacatangayrabulan@gmail.com', 'Portfolio');  // ← your Gmail here
+            $mail->addAddress('joshuamacatangayrabulan@gmail.com');    // ← where notif goes
+            $mail->Subject = "New Message from $name";
+            $mail->isHTML(true);
+            $mail->Body = "
+                <div style='font-family: Inter, sans-serif; max-width: 500px; margin: auto; border: 1px solid #e9ecef; border-radius: 12px; overflow: hidden;'>
+                    <div style='background: linear-gradient(135deg, #7AAACE, #355872); padding: 20px 24px;'>
+                        <h2 style='color: #fff; margin: 0; font-size: 18px;'>📬 New Portfolio Message</h2>
+                    </div>
+                    <div style='padding: 24px;'>
+                        <p style='margin: 0 0 12px;'><strong>Name:</strong> $name</p>
+                        <p style='margin: 0 0 12px;'><strong>Email:</strong> <a href='mailto:$email'>$email</a></p>
+                        <p style='margin: 0 0 8px;'><strong>Message:</strong></p>
+                        <p style='background: #f8f9fa; padding: 12px; border-radius: 8px; margin: 0;'>$message</p>
+                    </div>
+                    <div style='padding: 12px 24px; background: #f8f9fa; font-size: 12px; color: #6c757d;'>
+                        Sent from your portfolio contact form
+                    </div>
+                </div>
+            ";
+
+            $mail->send();
+        } catch (Exception $e) {
+            // Mail failed silently — DB save still succeeded
+        }
+
+        http_response_code(200);
+        echo json_encode(['success' => true, 'message' => 'Message sent!']);
+
+    } else {
+        throw new Exception("Execute failed: " . $stmt->error);
     }
 
-    // ── Send Email via PHPMailer ──
-    $mail = new PHPMailer(true);
-    
-    // SMTP Configuration
-    $mail->isSMTP();
-    $mail->Host       = getenv('SMTP_HOST') ?: 'smtp.gmail.com';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = getenv('SMTP_USERNAME') ?: 'joshuamacatangayrabulan@gmail.com';
-    $mail->Password   = getenv('SMTP_PASSWORD') ?: 'sdmo kppd xgsc pyhe';
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = getenv('SMTP_PORT') ?: 587;
-    
-    // Email Headers
-    $mail->setFrom($mail->Username, 'Joshua Rabulan Portfolio');
-    $mail->addAddress('joshuamacatangayrabulan@gmail.com', 'Joshua Rabulan');
-    $mail->addReplyTo($email, $name);
-    
-    // Email Content
-    $mail->Subject = "New Contact Form Message from $name";
-    $mail->isHTML(true);
-    $mail->Body = "
-        <div style='font-family: Inter, sans-serif; max-width: 500px; margin: auto; border: 1px solid #e9ecef; border-radius: 12px; overflow: hidden;'>
-            <div style='background: linear-gradient(135deg, #7AAACE, #355872); padding: 20px 24px;'>
-                <h2 style='color: #fff; margin: 0; font-size: 18px;'>📬 New Portfolio Message</h2>
-            </div>
-            <div style='padding: 24px;'>
-                <p style='margin: 0 0 12px;'><strong>Name:</strong> " . htmlspecialchars($name) . "</p>
-                <p style='margin: 0 0 12px;'><strong>Email:</strong> <a href='mailto:$email'>" . htmlspecialchars($email) . "</a></p>
-                <p style='margin: 0 0 8px;'><strong>Message:</strong></p>
-                <p style='background: #f8f9fa; padding: 12px; border-radius: 8px; margin: 0;'>" . nl2br(htmlspecialchars($message)) . "</p>
-            </div>
-            <div style='padding: 12px 24px; background: #f8f9fa; font-size: 12px; color: #6c757d;'>
-                Sent from your portfolio contact form<br>
-                Time: " . date('Y-m-d H:i:s') . "
-            </div>
-        </div>
-    ";
-    
-    $mail->AltBody = "Name: $name\nEmail: $email\nMessage:\n$message\n\nSent from your portfolio contact form";
-    
-    $mail->send();
-    
-    // Success response
-    http_response_code(200);
-    echo json_encode(['success' => true, 'message' => 'Message sent successfully!']);
-    
+    $stmt->close();
+    $conn->close();
+
 } catch (Exception $e) {
-    // Error response
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Failed to send message: ' . $e->getMessage()]);
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+}
+ catch (Exception $e) {
+    // Change this line:
+    error_log("Mail error: " . $e->getMessage());
+    // to this temporarily:
+    echo json_encode(['mail_error' => $e->getMessage()]);
 }
 ?>
+
+
