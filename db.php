@@ -1,7 +1,4 @@
 <?php
-// db.php - For TiDB Cloud on Render
-
-// Database configuration
 $host = getenv('DB_HOST') ?: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com';
 $username = getenv('DB_USER') ?: getenv('DB_USERNAME') ?: '4KfxBVX3fQLSFAe.root';
 $password = getenv('DB_PASSWORD') ?: 'arx3ZHVQMQnH0Exq';
@@ -61,9 +58,7 @@ if (!mysqli_real_connect(
     die("Connection failed: " . $error);
 }
 
-// Set charset
 $conn->set_charset("utf8mb4");
 
-// Connection successful
 error_log("Successfully connected to TiDB Cloud");
 ?>

@@ -5,7 +5,7 @@ ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/php_errors.log');
 
 // Include database connection
-require_once __DIR__ . '/db.php';  // Changed to absolute path
+require_once __DIR__ . '/../db.php';  // Changed to absolute path
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
