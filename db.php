@@ -5,7 +5,6 @@ $password = 'arx3ZHVQMQnH0Exq';
 $database = 'portfolio';
 $port = 4000;
 
-// Simple connection - no SSL, no certificate
 $conn = new mysqli($host, $username, $password, $database, $port);
 
 if ($conn->connect_error) {
