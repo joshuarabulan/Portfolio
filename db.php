@@ -1,7 +1,7 @@
 <?php
-$host     = 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com';
+$host     = 'gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com';
 $username = '4KfxBVX3fQLSFAe.root';
-$password = 'arx3ZHVQMQnH0Exq';
+$password = '3dgyLmHy1pL7sUfi';
 $database = 'portfolio';
 $port     = 4000;
 
