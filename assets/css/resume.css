@@ -1129,3 +1129,152 @@
 @supports not (selector(:has(a, b))) {
   .resume-section { border-left: 4px solid var(--primary); }
 }
+  /* CV Modal Styles */
+  .cv-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .cv-modal-content {
+    background: #fff;
+    max-width: 450px;
+    width: 90%;
+    border-radius: 28px;
+    box-shadow: 0 25px 45px -12px rgba(0,0,0,0.3);
+    overflow: hidden;
+    animation: modalSlideIn 0.25s ease-out;
+    margin: 20px;
+    position: relative;
+  }
+  
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(-12px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  
+  /* X Close Button */
+  .cv-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.05);
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #666;
+    z-index: 10;
+  }
+  
+  .cv-modal-close:hover {
+    background: #ef4444;
+    color: white;
+    transform: rotate(90deg);
+  }
+  
+  .cv-modal-header {
+    padding: 24px 28px 12px 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #eef2f6;
+  }
+  
+  .cv-modal-header i {
+    font-size: 32px;
+    color: #2c7da0;
+  }
+  
+  .cv-modal-header h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0a2b3e;
+    letter-spacing: -0.3px;
+  }
+  
+  .cv-modal-body {
+    padding: 20px 28px 20px 28px;
+    color: #2c3e4e;
+    font-size: 1rem;
+    line-height: 1.5;
+    background: #fefefe;
+  }
+  
+  .cv-modal-body p {
+    margin: 6px 0;
+  }
+  
+  .cv-modal-footer {
+    padding: 16px 28px 24px 28px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+    background: #ffffff;
+    border-top: 1px solid #edf2f7;
+  }
+  
+  .cv-btn-cancel, .cv-btn-confirm {
+    padding: 10px 22px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .cv-btn-cancel {
+    background: #f1f5f9;
+    color: #1e2f3a;
+  }
+  
+  .cv-btn-cancel:hover {
+    background: #e2e8f0;
+    transform: scale(0.97);
+  }
+  
+  .cv-btn-confirm {
+    background: #0f3b4f;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  
+  .cv-btn-confirm:hover {
+    background: #1f5e7a;
+    transform: scale(0.98);
+  }
+  
+  @media (max-width: 550px) {
+    .cv-modal-footer {
+      flex-direction: column-reverse;
+    }
+    .cv-btn-cancel, .cv-btn-confirm {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+  }

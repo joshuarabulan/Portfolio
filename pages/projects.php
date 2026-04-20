@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Portfolio | Joshua Rabulan </title>
+  <title> Portfolio </title>
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/icon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../assets/css/projects.css">
   <link rel="stylesheet" href="../assets/css/header.css">
   <link rel="stylesheet" href="../assets/css/modalcontact.css">
+  <link rel="stylesheet" href="../assets/css/send.css">
   <link rel="stylesheet" href="../assets/css/footer.css">
 </head>
 <body>
@@ -19,8 +20,6 @@
 
 <div class="container">
   <h2 class="section-title"> My Portfolio  </h2>
-
-  <!-- ── Filter Tabs ── -->
   <div class="project-filters">
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="web">Web</button>
@@ -28,9 +27,7 @@
     <button class="filter-btn" data-filter="design">Design</button>
   </div>
 
-  <!-- ── Projects Grid ── -->
   <div class="projects-grid">
-
     <!-- Project 1 -->
     <div class="project-card" data-category="php web"
          data-modal-title="An Online Support System for Report Generation at Malasakit Center"
@@ -194,9 +191,6 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     LIGHTBOX
-══════════════════════════════════════ -->
 <div class="lightbox-overlay" id="lightbox">
   <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
   <button class="lightbox-nav lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
@@ -205,98 +199,9 @@
   <div class="lightbox-counter" id="lightboxCounter"></div>
 </div>
 
-<!-- Modal styles (self-contained so it works regardless of external CSS) -->
-<style>
-  .project-modal-overlay {
-    position: fixed; inset: 0; z-index: 1000;
-    background: rgba(0,0,0,.72);
-    backdrop-filter: blur(6px);
-    display: flex; align-items: center; justify-content: center;
-    padding: 16px;
-  }
-  .project-modal-inner {
-    background: #fff;
-    border-radius: 16px;
-    max-width: 860px; width: 100%;
-    max-height: 90vh; overflow-y: auto;
-    display: flex; flex-direction: column;
-    position: relative;
-    animation: scaleIn .32s cubic-bezier(.22,1,.36,1) both;
-    box-shadow: 0 32px 80px rgba(0,0,0,.3);
-  }
-  @media (min-width: 640px) {
-    .project-modal-inner { flex-direction: row; max-height: 80vh; overflow: hidden; }
-    .project-modal-inner .modal-gallery { flex: 1.1; overflow-y: auto; }
-    .project-modal-inner .modal-info { flex: 1; overflow-y: auto; }
-  }
-  .modal-close-btn {
-    position: absolute; top: 12px; right: 12px; z-index: 10;
-    width: 34px; height: 34px; border-radius: 8px;
-    border: none; background: rgba(0,0,0,.08); color: #333;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px;
-  }
-  .modal-gallery { padding: 20px; background: #f8f8fb; border-radius: 16px 16px 0 0; }
-  @media (min-width: 640px) {
-    .modal-gallery { border-radius: 16px 0 0 16px; }
-  }
-  #modalGalleryMain {
-    width: 100%; border-radius: 10px; display: block;
-    object-fit: cover; max-height: 300px;
-    box-shadow: 0 4px 20px rgba(0,0,0,.12);
-  }
-  .modal-thumbs {
-    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
-  }
-  .gallery-thumb {
-    width: 58px; height: 42px; object-fit: cover;
-    border-radius: 6px; border: 2px solid transparent;
-    opacity: .75;
-  }
-  .gallery-thumb:hover { opacity: 1; }
-  .gallery-thumb.active { opacity: 1; }
-  .modal-info {
-    padding: 28px 24px; display: flex; flex-direction: column; gap: 12px;
-  }
-  .modal-category {
-    font-size: .7rem; font-weight: 600; letter-spacing: .1em;
-    text-transform: uppercase; color: #7AAACE;
-    animation: slideInLeft .4s .1s both;
-  }
-  .modal-title {
-    font-size: 1.15rem; font-weight: 700; color: #1e1e2e; line-height: 1.3;
-    animation: fadeInUp .4s .15s both;
-  }
-  .modal-desc {
-    font-size: .88rem; color: #555; line-height: 1.65;
-    animation: fadeInUp .4s .2s both;
-  }
-  .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; animation: fadeInUp .4s .25s both; }
-  .modal-tag {
-    font-size: .72rem; font-weight: 600; padding: 3px 10px;
-    border-radius: 20px; background: #ede9fe; color: #5b21b6;
-    transition: transform .2s, background .2s;
-  }
-  .modal-tag:hover { transform: scale(1.08); background: #7AAACE; color: #fff; }
-  .modal-links {
-    display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px;
-    animation: fadeInUp .4s .3s both;
-  }
-  .modal-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 8px 18px; border-radius: 8px; font-size: .84rem; font-weight: 600;
-    text-decoration: none;
-  }
-  .modal-link-primary   { background: #7AAACE; color: #fff; }
-  .modal-link-secondary { background: #1e1e2e; color: #fff; }
-</style>
-
 <?php include "../includes/footer.php"; ?>
 
 <script>
-/* ══════════════════════════════════════
-   FILTER
-══════════════════════════════════════ */
 const filterBtns   = document.querySelectorAll('.filter-btn');
 const projectCards = document.querySelectorAll('.project-card');
 
@@ -312,10 +217,6 @@ filterBtns.forEach(btn => {
     });
   });
 });
-
-/* ══════════════════════════════════════
-   MODAL
-══════════════════════════════════════ */
 const modal      = document.getElementById('projectModal');
 const modalClose = document.getElementById('modalClose');
 const modalMain  = document.getElementById('modalGalleryMain');

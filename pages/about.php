@@ -3,36 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About | Joshua Rabulan</title>
+  <title>About</title>
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="../assets/css/header.css">
-  <link rel="stylesheet" href="../assets/css/about.css">
-  <link rel="stylesheet" href="../assets/css/footer.css">
-  <link rel="stylesheet" href="../assets/css/modalcontact.css">
-  <link rel="stylesheet" href="../assets/css/resume.css">
-  <link rel="stylesheet" href="../assets/css/send.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/about.css">
+  <link rel="stylesheet" href="../assets/css/header.css">
+  <link rel="stylesheet" href="../assets/css/modalcontact.css">
+  <link rel="stylesheet" href="../assets/css/send.css">
+  <link rel="stylesheet" href="../assets/css/footer.css">
 </head>
 <body>
 
 <?php include "../includes/header.php"; ?>
 <div class="container">
-
-  <!-- Page Header -->
   <div class="about-header">
     <h1 class="section-title">
        About Me
     </h1>
     <p class="about-subtitle">Get to know who I am, what I do, and what drives me.</p>
   </div>
-
-  <!-- Hero Block -->
   <div class="about-hero">
-
     <div class="about-photo-wrap">
       <img src="../assets/images/me.JPG" alt="Joshua Rabulan" class="about-photo">
       <div class="about-photo-badge">
