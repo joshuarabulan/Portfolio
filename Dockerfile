@@ -19,12 +19,14 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY . /var/www/html/
-
 WORKDIR /var/www/html
 
-RUN composer install --no-interaction --optimize-autoloader
+# Copy composer files first and install dependencies
+COPY composer.json composer.lock ./
+RUN composer install --no-interaction --no-dev --optimize-autoloader
+
+# Copy the rest of the project
+COPY . .
 
 RUN a2enmod rewrite
-
 RUN chown -R www-data:www-data /var/www/html
