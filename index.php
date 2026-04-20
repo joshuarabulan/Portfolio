@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/modalcontact.css">
+    <link rel="stylesheet" href="assets/css/resume.css">
 </head>
 <body class="bg-image">
 <?php include "includes/header.php"; ?>
@@ -28,7 +29,6 @@
             <p class="description">Aspiring Web Developer and Tech Support with a strong interest in building clean, responsive, and user-friendly web applications. Passionate about solving technical issues, assisting users, and continuously learning new technologies. Open to internship and entry-level opportunities to gain hands-on experience and contribute to a dynamic team.</p>
 
             <div class="btn-group"> 
-                <!-- Download CV button with confirmation modal trigger -->
                 <button id="downloadCvBtn" class="btn">
                     <i class="fas fa-download"></i> Download CV
                 </button>
@@ -43,7 +43,7 @@
 <div id="cvConfirmModal" class="cv-modal">
     <div class="cv-modal-content">
         <div class="cv-modal-header">
-            <i class="fas fa-file-pdf"></i>
+            <i class="fas fa-info-circle" style="color:#2c7da0; margin-right: 6px;"></i>
             <h3>Download CV</h3>
         </div>
         <div class="cv-modal-body">

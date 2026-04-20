@@ -19,9 +19,9 @@ $current = basename($_SERVER['PHP_SELF'], '.php');
   <nav class="site-nav">
     <a href="<?php echo $base; ?>index.php" class="site-logo"> Joshua Rabulan </a>
     <ul class="nav-links">
-      <li><a href="<?php echo $base; ?>pages/projects.php" class="nav-link <?php echo $current === 'projects' ? 'active' : ''; ?>">Portfolio</a></li>
-      <li class="nav-dot" aria-hidden="true">•</li>
       <li><a href="<?php echo $base; ?>pages/about.php"    class="nav-link <?php echo $current === 'about'    ? 'active' : ''; ?>">About</a></li>
+      <li class="nav-dot" aria-hidden="true">•</li>
+      <li><a href="<?php echo $base; ?>pages/projects.php" class="nav-link <?php echo $current === 'projects' ? 'active' : ''; ?>">Portfolio</a></li>
       <li class="nav-dot" aria-hidden="true">•</li>
       <li><a href="<?php echo $base; ?>pages/resume.php"   class="nav-link <?php echo $current === 'resume'   ? 'active' : ''; ?>">Resume</a></li>
     </ul>
@@ -41,8 +41,8 @@ $current = basename($_SERVER['PHP_SELF'], '.php');
 
   <div class="nav-mobile" id="navMobile">
     <a href="<?php echo $base; ?>index.php"class="nav-mobile-link <?php echo $current === 'index'    ? 'active' : ''; ?>">Home</a>
-    <a href="<?php echo $base; ?>portfolio/pages/projects.php" class="nav-mobile-link <?php echo $current === 'projects' ? 'active' : ''; ?>">Portfolio</a>
     <a href="<?php echo $base; ?>portfolio/pages/about.php"    class="nav-mobile-link <?php echo $current === 'about'    ? 'active' : ''; ?>">About</a>
+    <a href="<?php echo $base; ?>portfolio/pages/projects.php" class="nav-mobile-link <?php echo $current === 'projects' ? 'active' : ''; ?>">Portfolio</a>
     <a href="<?php echo $base; ?>portfolio/pages/resume.php"   class="nav-mobile-link <?php echo $current === 'resume'   ? 'active' : ''; ?>">Resume</a>
     <!-- Mobile drawer also opens modal -->
     <button class="nav-mobile-link nav-mobile-contact" id="openContactModalMobile">
@@ -101,7 +101,7 @@ $current = basename($_SERVER['PHP_SELF'], '.php');
 
       <div class="modal-form-group">
         <label for="modalEmail"><i class="fas fa-envelope"></i> Email</label>
-        <input type="email" id="modalEmail" name="email" placeholder="your.email@example.com" required autocomplete="email">
+        <input type="email" id="modalEmail" name="email" placeholder="your.email@gmail.com" required autocomplete="email">
         <span class="modal-error" id="emailError">Please enter a valid email.</span>
       </div>
 

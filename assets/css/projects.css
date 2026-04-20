@@ -20,14 +20,50 @@
 
 @keyframes thumbSlideIn {
   from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 4; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0   rgba(53, 88, 114, .35); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(53, 88, 114, .35); }
   50%       { box-shadow: 0 0 0 8px rgba(53, 88, 114, 0);   }
 }
-/* ============ FILTER TABS========= */
+
+/* Additional Animation Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(230, 80, 27, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(230, 80, 27, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(230, 80, 27, 0); }
+}
+
+@keyframes shine {
+  to { background-position: 200% center; }
+}
+
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: translateY(-50px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ============ FILTER TABS ========= */
 .project-filters {
   display: flex;
   gap: 8px;
@@ -41,7 +77,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 8px 20px;
-  font-family: var(--'Inter', sans-serif);
+  font-family: 'Inter', sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -51,7 +87,7 @@
               transform .18s, box-shadow .22s;
 }
 
-.filter-btn:hover  {
+.filter-btn:hover {
   border-color: var(--primary);
   color: var(--primary);
   transform: translateY(-2px);
@@ -67,22 +103,22 @@
   animation: pulse 2s 1;
 }
 
-
 /* ================================================
    SECTION TITLE
    ================================================ */
 .section-title {
   animation: fadeInDown .6s cubic-bezier(.22,1,.36,1) both;
-}.section-title {
-    border-left: none !important;
-    padding-left: 0 !important;
+}
+
+.section-title {
+  border-left: none !important;
+  padding-left: 0 !important;
 }
 
 /* Sometimes designers use a ::before pseudo-element for this line */
 .section-title::before {
-    display: none !important;
+  display: none !important;
 }
-
 
 /* ================================================
    PROJECTS GRID
@@ -93,7 +129,6 @@
   gap: var(--spacing-md);
   padding-bottom: 3rem;
 }
-
 
 /* ================================================
    PROJECT CARD
@@ -119,6 +154,10 @@
 .project-card:nth-child(4) { animation-delay: .34s; }
 .project-card:nth-child(5) { animation-delay: .42s; }
 .project-card:nth-child(6) { animation-delay: .50s; }
+.project-card:nth-child(7) { animation-delay: .58s; }
+.project-card:nth-child(8) { animation-delay: .66s; }
+.project-card:nth-child(9) { animation-delay: .74s; }
+.project-card:nth-child(10) { animation-delay: .82s; }
 
 .project-card:hover {
   transform: translateY(-6px) scale(1.015);
@@ -129,7 +168,6 @@
 .project-card.hidden {
   display: none;
 }
-
 
 /* ── Thumbnail ── */
 .project-thumb {
@@ -163,12 +201,11 @@
 
 .project-thumb.no-img::after {
   content: '\f07b';
-  font-family: ''Inter', sans-serif';
+  font-family: 'Inter', sans-serif;
   font-weight: 900;
   font-size: 3rem;
   color: rgba(255, 255, 255, 0.12);
 }
-
 
 /* ── Quick-view button ── */
 .card-open-modal {
@@ -210,8 +247,7 @@
 }
 
 .card-open-modal:hover i { transform: scale(1.15) rotate(8deg); }
-.card-open-modal:active   { transform: scale(.96); }
-
+.card-open-modal:active { transform: scale(.96); }
 
 /* ── Hover overlay (GitHub / demo icons) ── */
 .project-overlay {
@@ -252,7 +288,6 @@
   transform: scale(1.18) rotate(-4deg);
 }
 
-
 /* ── Card body ── */
 .project-body {
   padding: var(--spacing-md);
@@ -281,7 +316,6 @@
   flex: 1;
 }
 
-
 /* ── Tech tags ── */
 .project-tags {
   display: flex;
@@ -308,7 +342,6 @@
   background: #8ca5b9;
   color: #fff;
 }
-
 
 /* ── Card footer links ── */
 .project-links {
@@ -350,7 +383,6 @@
   color: var(--white);
   border-color: var(--primary);
 }
-
 
 /* ================================================
    PROJECT DETAIL MODAL
@@ -421,7 +453,6 @@
   transform: rotate(90deg) scale(1.15);
 }
 
-
 /* ── Gallery panel ── */
 .modal-gallery {
   position: relative;
@@ -441,7 +472,7 @@
   transition: opacity .28s, transform .3s cubic-bezier(.22,1,.36,1);
 }
 
-.modal-gallery-main:hover   { transform: scale(1.03); }
+.modal-gallery-main:hover { transform: scale(1.03); }
 .modal-gallery-main.switching { opacity: 0; transform: scale(.97); }
 
 .modal-gallery-thumbs {
@@ -483,7 +514,6 @@
   box-shadow: 0 0 0 2px #355872;
   transform: scale(1.06);
 }
-
 
 /* ── Content panel ── */
 .modal-content {
@@ -592,7 +622,6 @@
   color: var(--white);
 }
 
-
 /* ================================================
    LIGHTBOX
    ================================================ */
@@ -694,6 +723,48 @@
   font-family: var(--font-primary);
 }
 
+/* ================================================
+   ADDITIONAL ENHANCEMENTS & UTILITIES
+   ================================================ */
+
+/* Scroll Reveal Utility */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover Lift Effect */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Smooth Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 /* ================================================
    RESPONSIVE

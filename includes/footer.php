@@ -6,7 +6,10 @@
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/modalcontact.css">
+    <link rel="stylesheet" href="../assets/css/resume.css">
+    <link rel="stylesheet" href="../assets/css/about.css">
     <title>Document</title>
 </head>
 <body>
@@ -20,12 +23,12 @@
     </div>
 
     <nav class="footer-links" aria-label="Footer navigation">
-  <a href="index.php"><i class="fas fa-chevron-right"></i>Home</a>
-  <a href="/portfolio/pages/about.php"><i class="fas fa-chevron-right"></i>About</a>
-  <a href="/portfolio/pages/projects.php"><i class="fas fa-chevron-right"></i>Portfolio</a>
-  <a href="/portfolio/pages/resume.php"><i class="fas fa-chevron-right"></i>Resume</a>
-  <a href="#" id="footerContactLink"><i class="fas fa-chevron-right"></i>Contact</a>
-   </nav>
+    <a href="/index.php"><i class="fas fa-chevron-right"></i>Home</a>
+    <a href="/pages/about.php"><i class="fas fa-chevron-right"></i>About</a>
+    <a href="/pages/projects.php"><i class="fas fa-chevron-right"></i>Portfolio</a>
+    <a href="/pages/resume.php"><i class="fas fa-chevron-right"></i>Resume</a>
+    <a href="#" id="footerContactLink"><i class="fas fa-chevron-right"></i>Contact</a>
+    </nav>
 
     <div class="footer-socials">
       <a href="https://www.linkedin.com/in/joshua-rabulan-169b30283/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -41,7 +44,7 @@
         &copy; <span id="year"></span> Joshua Rabulan Portfolio
       </p>
       <p class="footer-built">
-        Built with <i class="fas fa-heart"></i> using PHP
+        Built with using PHP
       </p>
     </div>
   </div>
