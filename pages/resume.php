@@ -18,7 +18,7 @@
 <div class="container">
 
   <h2 class="section-title">
-    <i></i> My Resume
+    <i></i> My Resume | Joshua Rabulan
   </h2>
 
   <div class="resume-content">

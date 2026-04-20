@@ -18,7 +18,7 @@
 <?php include "../includes/header.php"; ?>
 
 <div class="container">
-  <h2 class="section-title"> My Portfolio </h2>
+  <h2 class="section-title"> My Portfolio | Joshua Rabulan </h2>
 
   <!-- ── Filter Tabs ── -->
   <div class="project-filters">
