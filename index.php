@@ -15,16 +15,15 @@
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/modalcontact.css">
     <link rel="stylesheet" href="assets/css/resume.css">
+    <!-- ✅ Google Analytics (CORRECT PLACE) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FEEBMPZ8S0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FEEBMPZ8S0');
+  </script>
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEEBMPZ8S0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-FEEBMPZ8S0');
-</script>
 <body class="bg-image">
 <?php include "includes/header.php"; ?>
 <div class="container">

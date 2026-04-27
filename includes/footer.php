@@ -11,17 +11,17 @@
     <link rel="stylesheet" href="../assets/css/resume.css">
     <link rel="stylesheet" href="../assets/css/about.css">
     <title>Document</title>
+    <!-- ✅ Google Analytics (CORRECT PLACE) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FEEBMPZ8S0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FEEBMPZ8S0');
+  </script>
 </head>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEEBMPZ8S0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-FEEBMPZ8S0');
-</script><body>
+<body>
     
 <footer>
   <div class="footer-rule"></div>
