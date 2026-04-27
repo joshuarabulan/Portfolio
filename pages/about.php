@@ -14,6 +14,15 @@
   <link rel="stylesheet" href="../assets/css/send.css">
   <link rel="stylesheet" href="../assets/css/footer.css">
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEEBMPZ8S0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FEEBMPZ8S0');
+</script>
 <body>
 
 <?php include "../includes/header.php"; ?>

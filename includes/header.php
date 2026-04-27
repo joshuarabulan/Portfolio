@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Document</title>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEEBMPZ8S0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FEEBMPZ8S0');
+</script>
 <body>
 <?php
 $isRoot = (basename(dirname($_SERVER['PHP_SELF'])) == 'PORTFOLIO' || basename($_SERVER['PHP_SELF']) == 'index.php');

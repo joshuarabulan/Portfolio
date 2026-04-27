@@ -12,7 +12,16 @@
     <link rel="stylesheet" href="../assets/css/about.css">
     <title>Document</title>
 </head>
-<body>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEEBMPZ8S0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FEEBMPZ8S0');
+</script><body>
     
 <footer>
   <div class="footer-rule"></div>
