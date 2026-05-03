@@ -58,83 +58,54 @@ try {
     error_log("DB error: " . $e->getMessage());
 }
 
-// ── 2. Send email using SendGrid API (works on Render free tier) ────
+// ── 2. Send email using Brevo SMTP (works on Render) ─────────────────
 try {
-    // Get SendGrid API key from environment variable
-    $sendgrid_api_key = getenv('SENDGRID_API_KEY');
-    
-    if ($sendgrid_api_key) {
-        $url = 'https://api.sendgrid.com/v3/mail/send';
-        
-        $email_data = [
-            'personalizations' => [
-                [
-                    'to' => [
-                        ['email' => 'joshuamacatangayrabulan@gmail.com', 'name' => 'Joshua Rabulan']
-                    ],
-                    'subject' => "New Portfolio Message from $name"
-                ]
-            ],
-            'from' => [
-                'email' => 'joshuamacatangayrabulan@gmail.com',
-                'name' => 'Joshua Rabulan Portfolio'
-            ],
-            'reply_to' => [
-                'email' => $email,
-                'name' => $name
-            ],
-            'content' => [
-                [
-                    'type' => 'text/html',
-                    'value' => "
-                        <div style='font-family:Arial,sans-serif;max-width:500px;margin:0 auto;border:1px solid #ddd;border-radius:8px;overflow:hidden;'>
-                            <div style='background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:20px;color:#fff;'>
-                                <h2 style='margin:0;'>New Portfolio Message</h2>
-                            </div>
-                            <div style='padding:20px;'>
-                                <p><strong>Name:</strong> " . htmlspecialchars($name) . "</p>
-                                <p><strong>Email:</strong> <a href='mailto:" . htmlspecialchars($email) . "'>" . htmlspecialchars($email) . "</a></p>
-                                <p><strong>Message:</strong></p>
-                                <div style='background:#f5f5f5;padding:10px;border-radius:5px;'>" . nl2br(htmlspecialchars($message)) . "</div>
-                            </div>
-                            <div style='background:#f9f9f9;padding:10px;text-align:center;font-size:12px;color:#888;'>
-                                Sent from your portfolio contact form • " . date('F j, Y g:i A') . "
-                            </div>
-                        </div>"
-                ],
-                [
-                    'type' => 'text/plain',
-                    'value' => "Name: $name\nEmail: $email\nMessage:\n$message\n\nSent: " . date('Y-m-d H:i:s')
-                ]
-            ]
-        ];
-        
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer ' . $sendgrid_api_key,
-            'Content-Type: application/json'
-        ]);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($email_data));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        
-        $response = curl_exec($ch);
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        
-        if ($http_code === 202) {
-            $emailSent = true;
-            error_log("Email sent successfully via SendGrid");
-        } else {
-            error_log("SendGrid failed with HTTP $http_code: $response");
-        }
-    } else {
-        error_log("SENDGRID_API_KEY not set in environment variables");
-    }
+    // Brevo SMTP credentials
+    $smtpUser = 'aa10ec001@smtp-brevo.com';
+$smtpPass = getenv('BREVO_SMTP_KEY') ?: '';  // Read from Render environment
+    $smtpHost = 'smtp-relay.brevo.com';
+    $smtpPort = 587;
+    $notifyTo = 'joshuamacatangayrabulan@gmail.com';
+
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->Host       = $smtpHost;
+    $mail->SMTPAuth   = true;
+    $mail->Username   = $smtpUser;
+    $mail->Password   = $smtpPass;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = $smtpPort;
+    $mail->Timeout    = 30;
+    $mail->CharSet    = 'UTF-8';
+
+    $mail->setFrom($smtpUser, 'Joshua Rabulan Portfolio');
+    $mail->addAddress($notifyTo);
+    $mail->addReplyTo($email, $name);
+    $mail->Subject = "New Portfolio Message from $name";
+    $mail->isHTML(true);
+    $mail->Body = "
+        <div style='font-family:Arial,sans-serif;max-width:500px;margin:0 auto;border:1px solid #ddd;border-radius:8px;overflow:hidden;'>
+            <div style='background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:20px;color:#fff;'>
+                <h2 style='margin:0;'>New Portfolio Message</h2>
+            </div>
+            <div style='padding:20px;'>
+                <p><strong>Name:</strong> " . htmlspecialchars($name) . "</p>
+                <p><strong>Email:</strong> <a href='mailto:" . htmlspecialchars($email) . "'>" . htmlspecialchars($email) . "</a></p>
+                <p><strong>Message:</strong></p>
+                <div style='background:#f5f5f5;padding:10px;border-radius:5px;'>" . nl2br(htmlspecialchars($message)) . "</div>
+            </div>
+            <div style='background:#f9f9f9;padding:10px;text-align:center;font-size:12px;color:#888;'>
+                Sent from your portfolio contact form • " . date('F j, Y g:i A') . "
+            </div>
+        </div>";
+    $mail->AltBody = "Name: $name\nEmail: $email\nMessage:\n$message\n\nSent: " . date('Y-m-d H:i:s');
+
+    $mail->send();
+    $emailSent = true;
+    error_log("Email sent successfully via Brevo SMTP");
 
 } catch (Exception $e) {
-    error_log("Email API error: " . $e->getMessage());
+    error_log("Brevo SMTP error: " . $e->getMessage());
 }
 
 // ── 3. Respond ───────────────────────────────────────────────────────
